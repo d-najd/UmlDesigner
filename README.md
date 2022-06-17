@@ -2,10 +2,10 @@
 
 App used for designing uml diagams in multiple ways 
 
-[![Code Quality](https://img.shields.io/codefactor/grade/github/d-najd/umldesigner) [![Repo Size](https://img.shields.io/github/repo-size/d-najd/UmlDesigner)
+![Code Quality](https://img.shields.io/codefactor/grade/github/d-najd/umldesigner) ![Repo Size](https://img.shields.io/github/repo-size/d-najd/UmlDesigner)
 ## Setup
 
-To clone and run the application, you will need [Android Studio](https://developer.android.com/studio) and [Git](https://git-scm.com/) installed on your command line.
+To clone and run the application, you will need [Android Studio]() and [Git]() installed on your command line.
 from your command line
 ``` sh
 git clone https://github.com/d-najd/UmlDesigner UmlDesignerApp
