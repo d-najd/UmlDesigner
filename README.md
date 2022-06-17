@@ -8,7 +8,7 @@ To clone and run the application, you will need Android Studio and Git installed
 from your command line
 ```
 #clone repository
-git clone https://github.com/Deltashot/UmlDesigner UmlDesignerApp
+git clone https://github.com/d-najd/UmlDesigner UmlDesignerApp
 ```
 After it is done cloning the repository you open android studio and go to File->Open->Select project location and then you run the app
 
