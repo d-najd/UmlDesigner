@@ -15,7 +15,7 @@ After it is done cloning the repository you open android studio and go to File->
 # Key Features
  - Light/Dark mode (work in progress)
  - Json support (work in progress)
-  - Ability to generate uml diagrams from json files
+  -  Ability to generate uml diagrams from json files
  - Mysql support (work in progress)
   - Ability to generate uml diagrams from mysql code
 
