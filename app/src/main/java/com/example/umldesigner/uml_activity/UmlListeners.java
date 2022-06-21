@@ -1,4 +1,4 @@
-package com.example.umldesigner.UmlActivity;
+package com.example.umldesigner.uml_activity;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -7,7 +7,8 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.example.umldesigner.UmlActivity.Views.UmlBackground;
+import com.example.umldesigner.uml_activity.logic.UmlSingleton;
+import com.example.umldesigner.uml_activity.views.UmlBackground;
 
 import java.util.Objects;
 

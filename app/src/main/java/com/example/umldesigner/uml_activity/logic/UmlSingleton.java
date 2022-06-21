@@ -1,10 +1,8 @@
-package com.example.umldesigner.UmlActivity;
+package com.example.umldesigner.uml_activity.logic;
 
 import com.example.umldesigner.MainActivity;
-import com.example.umldesigner.UmlActivity.Views.UmlObject;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class UmlSingleton {
     private static UmlSingleton firstInstance = null;
@@ -20,14 +18,14 @@ public class UmlSingleton {
 
     public static float spacing =                 6f * MainActivity.dp;
 
-    public static final float BOARD_LAYER =      .500f;
-    public static final float ARROW_HEAD_LAYER = .012f;
-    public static final float ARROW_BACK_LAYER = .011f;
-    public static final float ARROW_BODY_LAYER = .010f;
+    public static final float TABLE_ELEVATION =  .500f;
+    public static final float ARROW_HEAD_ELEVATION = .012f;
+    public static final float ARROW_BACK_ELEVATION = .011f;
+    public static final float ARROW_BODY_ELEVATION = .010f;
 
     private UmlSingleton() {}
 
-    public UmlSingleton getInstance() {
+    public static UmlSingleton getInstance() {
         if (firstInstance == null){
             firstInstance = new UmlSingleton();
             UuidCounter = 0;

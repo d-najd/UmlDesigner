@@ -1,4 +1,4 @@
-package com.example.umldesigner.UmlActivity.Views;
+package com.example.umldesigner.uml_activity.views;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -6,7 +6,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
-import com.example.umldesigner.UmlActivity.UmlSingleton;
+import com.example.umldesigner.uml_activity.logic.UmlSingleton;
 
 
 /**

@@ -1,4 +1,4 @@
-package com.example.umldesigner.UmlActivity.Views;
+package com.example.umldesigner.uml_activity.logic;
 
 public enum UmlObjectType {
     Arrow,

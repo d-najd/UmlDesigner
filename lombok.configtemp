@@ -1,0 +1,5 @@
+lombok.anyConstructor.suppressConstructorProperties = true
+lombok.addGeneratedAnnotation = false
+
+
+to make this work rename lombok.configtemp to lombok.config

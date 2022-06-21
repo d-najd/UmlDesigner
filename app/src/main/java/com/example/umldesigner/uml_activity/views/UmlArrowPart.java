@@ -1,10 +1,12 @@
-package com.example.umldesigner.UmlActivity.Views;
+package com.example.umldesigner.uml_activity.views;
 
 import android.util.Log;
 import android.view.View;
 
 import com.example.umldesigner.Message;
-import com.example.umldesigner.UmlActivity.UmlSingleton;
+import com.example.umldesigner.uml_activity.logic.UmlSingleton;
+import com.example.umldesigner.uml_activity.logic.UmlObject;
+import com.example.umldesigner.uml_activity.logic.UmlObjectType;
 
 public class UmlArrowPart extends View implements UmlObject {
     private Integer Uuid;
@@ -29,13 +31,13 @@ public class UmlArrowPart extends View implements UmlObject {
 
         switch (type){
             case ArrowHead:
-                this.setElevation(UmlSingleton.ARROW_HEAD_LAYER);
+                this.setElevation(UmlSingleton.ARROW_HEAD_ELEVATION);
                 this.setX(parent.xEnd - parent.colliderSize/2);
                 this.setY(parent.yEnd - parent.colliderSize/2);
                 this.setRotation((float) (angle + 180));
                 break;
             case ArrowBody:
-                this.setElevation(UmlSingleton.ARROW_BODY_LAYER);
+                this.setElevation(UmlSingleton.ARROW_BODY_ELEVATION);
                 this.setX(parent.xStart - parent.colliderSize/2);
                 this.setY(parent.yStart - parent.colliderSize/2);
                 this.setRotation((float) angle + 90);
@@ -45,7 +47,7 @@ public class UmlArrowPart extends View implements UmlObject {
                         Math.pow(parent.yStart - parent.yEnd, 2))) +  parent.colliderSize));
                 break;
             case ArrowBack:
-                this.setElevation(UmlSingleton.ARROW_BACK_LAYER);
+                this.setElevation(UmlSingleton.ARROW_BACK_ELEVATION);
                 this.setX(parent.xStart - parent.colliderSize/2);
                 this.setY(parent.yStart - parent.colliderSize/2);
                 this.setRotation((float) (angle + 180));
@@ -63,15 +65,22 @@ public class UmlArrowPart extends View implements UmlObject {
 
     @Override
     public void move(float x, float y) {
-        switch (type){
-            case ArrowHead:
-                parent.movePart(x, y, true);
-                break;
-            case ArrowBody:
-                parent.move(x, y);
-                break;
-            case ArrowBack:
-                parent.movePart(x, y, false);
+        try {
+            switch (type) {
+                case ArrowHead:
+                    parent.movePart(x, y, true);
+                    break;
+                case ArrowBody:
+                    parent.move(x, y);
+                    break;
+                case ArrowBack:
+                    parent.movePart(x, y, false);
+                    break;
+                default:
+                    throw new IllegalAccessException("invalid arrow type entered " + type.toString());
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
