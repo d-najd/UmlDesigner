@@ -10,16 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.umldesigner.R;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterField;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
 
 public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewHolder>{
-    private ArrayList<UmlAdapterData> recyclerDataArrayList;
+    private ArrayList<UmlAdapterFieldData> recyclerDataArrayList;
     private Context context;
-    private UmlAdapterData curData;
+    private UmlAdapterFieldData curData;
     private UmlRecyclerViewHolder curHolder;
     
-    public UmlAdapter(ArrayList<UmlAdapterData> recyclerDataArrayList, Context context) {
+    public UmlAdapter(ArrayList<UmlAdapterFieldData> recyclerDataArrayList, Context context) {
         this.recyclerDataArrayList = recyclerDataArrayList;
         this.context = context;
     }
@@ -37,7 +40,8 @@ public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewH
         curData = recyclerDataArrayList.get(position);
         curHolder = holder;
         
-        holder.title.setText(curData.getTitle());
+        
+        holder.title.setText(new StringBuilder().append("- ").append(curData.getValue()).append(": ").append(curData.getType()).toString());
     }
     
     @Override

@@ -91,9 +91,6 @@ public class UmlArrowView extends View implements UmlObject {
         this.viewGroup = viewGroup;
         this.setTag(UmlObjectType.Arrow.toString());
         this.setId(Uuid);
-
-        Log.wtf("TEST",this.getId() + "");
-
         UmlSingleton.allExistingViewTags.put(Uuid, this);
     }
 

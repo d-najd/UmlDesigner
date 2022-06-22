@@ -1,7 +1,10 @@
 package com.example.umldesigner.uml_activity.logic;
 
 import com.example.umldesigner.MainActivity;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UmlSingleton {
@@ -15,7 +18,9 @@ public class UmlSingleton {
     public static Integer UuidCounter = null;
     //the tags of all existing views/constraint layouts
     public static HashMap<Integer, UmlObject> allExistingViewTags = null;
-
+    //holds the data inside the uml tables
+    public static ArrayList<UmlAdapterTableData> umlTablesData = null;
+    
     public static float spacing =                 6f * MainActivity.dp;
 
     public static final float TABLE_ELEVATION =  .500f;
@@ -30,6 +35,7 @@ public class UmlSingleton {
             firstInstance = new UmlSingleton();
             UuidCounter = 0;
             allExistingViewTags = new HashMap<>();
+            umlTablesData = new ArrayList<>();
         }
 
         return firstInstance;
