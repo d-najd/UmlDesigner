@@ -7,13 +7,17 @@ import android.view.ViewGroup;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.example.umldesigner.uml_activity.UmlListeners;
+import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
 import com.example.umldesigner.uml_activity.views.UmlArrowPart;
 import com.example.umldesigner.uml_activity.views.UmlArrowView;
 import com.example.umldesigner.uml_activity.views.UmlTableView;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 import java.util.zip.Inflater;
 
 public class UmlObjectFactory {
@@ -60,7 +64,16 @@ public class UmlObjectFactory {
                     throw new IllegalStateException("creating UmlTables requires them to have a name");
                 if (positions.length != 2)
                     throw new IllegalStateException("creating UmlTables requires them to have x and y position, nothing more nothing less");
-                return new UmlTableView(container.getContext(), title, positions[0], positions[1]);
+                
+                /* turns the arraylist of Objects into a arraylist of UmlAdapterFieldData, basically
+                    just casts it, and if the objects are null creates new arraylist
+                 */
+                ArrayList<UmlAdapterFieldData> tableData = objects != null ?
+                        (ArrayList<UmlAdapterFieldData>) objects.parallelStream()
+                        .map(e -> (UmlAdapterFieldData) e).collect(Collectors.toList()) : new ArrayList<>();
+                
+                return new UmlTableView(container.getContext(), title, positions[0], positions[1],
+                        (ArrayList<UmlAdapterFieldData>) tableData);
             default:
                 throw new IllegalStateException("invalid type: " + type);
         }

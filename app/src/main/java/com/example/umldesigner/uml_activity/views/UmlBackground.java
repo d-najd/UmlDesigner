@@ -32,8 +32,8 @@ public class UmlBackground extends View {
         float yOff = 0;
         for (int x = 0; x < 1000; x++){
             for (int y = 0; y < 1000; y++){
-                float xVal = x * UmlSingleton.spacing * dp;
-                float yVal = y * UmlSingleton.spacing * dp + yOff;
+                float xVal = x * UmlSingleton.spacing;
+                float yVal = y * UmlSingleton.spacing + yOff;
 
                 canvas.drawCircle(xVal, yVal, 2.0f, paint);
             }

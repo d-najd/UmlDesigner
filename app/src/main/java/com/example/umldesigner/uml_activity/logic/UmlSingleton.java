@@ -21,7 +21,7 @@ public class UmlSingleton {
     //holds the data inside the uml tables
     public static ArrayList<UmlAdapterTableData> umlTablesData = null;
     
-    public static float spacing =                 6f * MainActivity.dp;
+    public static float spacing =                 19f * MainActivity.dp;
 
     public static final float TABLE_ELEVATION =  .500f;
     public static final float ARROW_HEAD_ELEVATION = .012f;

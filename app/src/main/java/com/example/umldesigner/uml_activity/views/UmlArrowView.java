@@ -135,8 +135,8 @@ public class UmlArrowView extends View implements UmlObject {
     @Override
     public void move(float x, float y) {
         //new position of the arrow (the main part that is holding all the others)
-        float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing * dp)) * UmlSingleton.spacing * dp;
-        float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing * dp)) * UmlSingleton.spacing * dp;
+        float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
+        float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
 
         //difference between the starting positions and new positions, for ex arrow starts at 100
         //and new is 150, difference is 50, the difference is used because the different arrow parts
@@ -316,9 +316,9 @@ public class UmlArrowView extends View implements UmlObject {
         float spacing = UmlSingleton.spacing;
 
         float[][] arrowPaths = {
-                {-1 * spacing * dp * xScaling + xEnd , .5f * spacing * dp * yScaling + yEnd}, //left
-                {0 * spacing * dp * xScaling + xEnd , -.5f * spacing * dp * yScaling + yEnd}, //top
-                {1 * spacing * dp * xScaling + xEnd, .5f * spacing * dp * yScaling + yEnd} //right
+                {-1.8f * spacing * xScaling + xEnd , .9f * spacing * yScaling + yEnd}, //left
+                {0 * spacing * xScaling + xEnd , -.9f * spacing * yScaling + yEnd}, //top
+                {1.8f * spacing * xScaling + xEnd, .9f * spacing * yScaling + yEnd} //right
         };
 
         double angle = calculateAngle(xStart, yStart, xEnd, yEnd);

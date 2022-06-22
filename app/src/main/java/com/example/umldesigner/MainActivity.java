@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,35 +42,22 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
 
         dp = getResources().getDisplayMetrics().density;
         float spacing = UmlSingleton.spacing;
-        float spacedDp = spacing * dp;
         container = findViewById(R.id.container);
         
         addGrid();
         
+        
         umlObjectFactory = new UmlObjectFactory(container, umlListeners);
 
-
         container.addView((View) umlObjectFactory.create("arrow",
-                new float[]{3.5f * spacedDp, 10f * spacedDp, 9.5f * spacedDp, 15f * spacedDp}));
+                new float[]{3.5f * spacing, 13f * spacing, 9.5f * spacing, 18f * spacing}));
     
-        RecyclerView umlTableRecyclerView = container.findViewById(R.id.uml_table_recyclerView);
-        ConstraintLayout umlTableLayout = container.findViewById(R.id.includeTest);
-    
-        container.addView((View) umlObjectFactory.create("umltable", "stonks", new float[]{200, 200}));
-        
-        umlTableLayout.setElevation(UmlSingleton.TABLE_ELEVATION);
-        
-        ArrayList<UmlAdapterFieldData> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
+        ArrayList<Object> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
                 new UmlAdapterFieldData("ProductId", "int"), new UmlAdapterFieldData("ProductName", "varchar(100)")));
+        container.addView((View) umlObjectFactory.create("umltable", "stonks", new float[]{3 * spacing, 3 * spacing}, umlAdapterFieldArrayList));
     
-        ArrayList<UmlAdapterTableData> umlAdapterTableDataArrayList = new ArrayList<>();
-        umlAdapterTableDataArrayList.add(new UmlAdapterTableData("Product", 0, 0, umlAdapterFieldArrayList));
-        
-        UmlAdapter adapter = new UmlAdapter(umlAdapterFieldArrayList, this);
+        Log.wtf("hello", UmlSingleton.spacing + "");
     
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        umlTableRecyclerView.setLayoutManager(layoutManager);
-        umlTableRecyclerView.setAdapter(adapter);
     }
 
     //didn't want the main activity to start another activity so I went with this

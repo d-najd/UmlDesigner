@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content">
 
                 <!--NOTE for some reason wrap-content removes the lines, remember to change it in
-                layout/card_uml_table.xml if you change the width -->
+                layout/card_uml_table.xml if you change the width
                 <include
                     app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="4dp"
@@ -28,7 +28,7 @@
                     android:id="@+id/includeTest"
                     android:layout_height="wrap_content"
                     layout="@layout/card_uml_table"/>
-
+                -->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
