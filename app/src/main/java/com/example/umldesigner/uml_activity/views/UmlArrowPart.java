@@ -9,9 +9,9 @@ import com.example.umldesigner.uml_activity.logic.UmlObject;
 import com.example.umldesigner.uml_activity.logic.UmlObjectType;
 
 public class UmlArrowPart extends View implements UmlObject {
-    private Integer Uuid;
-    private UmlObjectType type;
-    private UmlArrowView parent;
+    private final Integer Uuid;
+    private final UmlObjectType type;
+    private final UmlArrowView parent;
 
     public UmlArrowPart(UmlArrowView parent, UmlObjectType type) {
         super(parent.getContext());

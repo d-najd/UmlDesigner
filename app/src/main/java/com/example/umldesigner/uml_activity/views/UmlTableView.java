@@ -1,6 +1,7 @@
 package com.example.umldesigner.uml_activity.views;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.umldesigner.R;
+import com.example.umldesigner.uml_activity.UmlListeners;
 import com.example.umldesigner.uml_activity.logic.UmlObject;
 import com.example.umldesigner.uml_activity.logic.UmlObjectType;
 import com.example.umldesigner.uml_activity.logic.UmlSingleton;
@@ -24,10 +26,31 @@ import java.util.List;
 
 public class UmlTableView extends ConstraintLayout implements UmlObject {
     private UmlAdapterTableData data;
-    private UmlObjectType type;
-    private Integer Uuid;
+    private final UmlObjectType type;
+    private final Integer Uuid;
     
-    public UmlTableView(@NonNull Context context, String title, float x, float y, ArrayList<UmlAdapterFieldData> fieldData){
+    /**
+     * creates UmlTableView at given position and with given listeners if given
+     * <pre>
+     *      _______________
+     *     |    title     |
+     *     |--------------|
+     *     | field1       |
+     *     | field2       |
+     *     | field...     |
+     *      _______________
+     * </pre>
+     *
+     * @param title title of the table
+     * @param x absolute position on the grid (not taking into account the circles)
+     * @param y absolute position on the grid (not taking into account the circles)
+     * @param fieldData data of all of the fields in the recyclerview
+     * @implNote the collision is not done here and each field in the recyclerView should have a
+     * different collider (not the same as the title) as to be able to set connections with only
+     * dragging the field and change its settings
+     */
+    public UmlTableView(@NonNull Context context, String title, float x, float y,
+                        ArrayList<UmlAdapterFieldData> fieldData){
         super(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.card_uml_table, this, true);
@@ -39,6 +62,7 @@ public class UmlTableView extends ConstraintLayout implements UmlObject {
         this.setX(x);
         this.setY(y);
         this.setElevation(UmlSingleton.TABLE_ELEVATION);
+        this.setBackgroundColor(2131034697); //color of R.color.red somehow
         UmlSingleton.allExistingViewTags.put(Uuid, this);
         
         TextView titleTextView = v.findViewById(R.id.title);
@@ -52,8 +76,6 @@ public class UmlTableView extends ConstraintLayout implements UmlObject {
         umlTableRecyclerView.setAdapter(adapter);
     }
     
-    
-    
     @Override
     public UmlObjectType getType() {
         return type;
@@ -66,8 +88,11 @@ public class UmlTableView extends ConstraintLayout implements UmlObject {
     
     @Override
     public void move(float x, float y) {
-        this.setX(x);
-        this.setY(y);
+        float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
+        float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
+    
+        this.setX(newX);
+        this.setY(newY);
     }
     
     @Override

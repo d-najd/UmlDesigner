@@ -131,10 +131,12 @@ public class UmlArrowView extends View implements UmlObject {
 
     /**
      * moves the view and its colliders to a given position
+     * @implNote follows the positions of the circles on the grid
      */
     @Override
     public void move(float x, float y) {
-        //new position of the arrow (the main part that is holding all the others)
+        //new position of the arrow (the main part that is holding all the others), taking into
+        //consideration the positions of the circles
         float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
         float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
 

@@ -1,5 +1,6 @@
 package com.example.umldesigner.uml_activity.logic;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class UmlObjectFactory {
         return create(type, null, positions, views, null);
     }
     
+    @SuppressLint("ClickableViewAccessibility")
     public UmlObject create(String type, String title, float[] positions, View[] views, ArrayList<Object> objects){
         switch (type.toLowerCase(Locale.ROOT)){
             case "arrow":
@@ -71,11 +73,12 @@ public class UmlObjectFactory {
                 ArrayList<UmlAdapterFieldData> tableData = objects != null ?
                         (ArrayList<UmlAdapterFieldData>) objects.parallelStream()
                         .map(e -> (UmlAdapterFieldData) e).collect(Collectors.toList()) : new ArrayList<>();
-                
-                return new UmlTableView(container.getContext(), title, positions[0], positions[1],
+                UmlTableView umlTableView = new UmlTableView(container.getContext(), title, positions[0], positions[1],
                         (ArrayList<UmlAdapterFieldData>) tableData);
+                    umlTableView.setOnTouchListener(umlListeners);
+                    return umlTableView;
             default:
-                throw new IllegalStateException("invalid type: " + type);
+                    throw new IllegalStateException("invalid type: " + type);
         }
     }
 }
