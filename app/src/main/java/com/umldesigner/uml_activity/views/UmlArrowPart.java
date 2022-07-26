@@ -1,12 +1,12 @@
-package com.example.umldesigner.uml_activity.views;
+package com.umldesigner.uml_activity.views;
 
 import android.util.Log;
 import android.view.View;
 
-import com.example.umldesigner.Message;
-import com.example.umldesigner.uml_activity.logic.UmlSingleton;
-import com.example.umldesigner.uml_activity.logic.UmlObject;
-import com.example.umldesigner.uml_activity.logic.UmlObjectType;
+import com.umldesigner.Message;
+import com.umldesigner.uml_activity.logic.UmlSingleton;
+import com.umldesigner.uml_activity.logic.UmlObject;
+import com.umldesigner.uml_activity.logic.UmlObjectType;
 
 public class UmlArrowPart extends View implements UmlObject {
     private final Integer Uuid;

@@ -1,4 +1,4 @@
-package com.example.umldesigner;
+package com.umldesigner;
 
 public interface ReceiverInterface {
     /**

@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.views;
+package com.umldesigner.uml_activity.views;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.umldesigner.MainActivity;
-import com.example.umldesigner.R;
-import com.example.umldesigner.uml_activity.UmlListeners;
-import com.example.umldesigner.uml_activity.logic.UmlSingleton;
-import com.example.umldesigner.uml_activity.logic.UmlObject;
-import com.example.umldesigner.uml_activity.logic.UmlObjectType;
+import com.umldesigner.MainActivity;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.UmlListeners;
+import com.umldesigner.uml_activity.logic.UmlSingleton;
+import com.umldesigner.uml_activity.logic.UmlObject;
+import com.umldesigner.uml_activity.logic.UmlObjectType;
 
 public class UmlArrowView extends View implements UmlObject {
     //http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html

@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.recycler;
+package com.umldesigner.uml_activity.recycler;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,10 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.umldesigner.R;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterField;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterField;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
 

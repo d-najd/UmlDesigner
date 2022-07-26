@@ -1,4 +1,4 @@
-package com.example.umldesigner;
+package com.umldesigner;
 
 import android.content.Context;
 import android.widget.Toast;

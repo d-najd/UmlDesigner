@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity;
+package com.umldesigner.uml_activity;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,10 +11,10 @@ import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 
-import com.example.umldesigner.MainActivity;
-import com.example.umldesigner.Message;
-import com.example.umldesigner.R;
-import com.example.umldesigner.uml_activity.logic.UmlObjectFactory;
+import com.umldesigner.MainActivity;
+import com.umldesigner.Message;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.logic.UmlObjectFactory;
 
 public class CreateTableDialog extends Dialog {
     MainActivity mainActivity;

@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.recycler.data;
+package com.umldesigner.uml_activity.recycler.data;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,6 +20,4 @@ public abstract class UmlAdapterTable {
      * of each element
      */
     protected ArrayList<UmlAdapterFieldData> valuePos = null;
-    
-
 }

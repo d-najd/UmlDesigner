@@ -1,4 +1,4 @@
-package com.example.umldesigner;
+package com.umldesigner;
 
 import android.content.DialogInterface;
 import android.content.res.Resources;
@@ -10,10 +10,10 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AlertDialog;
 
-import com.example.umldesigner.MainActivity;
-import com.example.umldesigner.Message;
-import com.example.umldesigner.R;
-import com.example.umldesigner.uml_activity.CreateTableDialog;
+import com.umldesigner.MainActivity;
+import com.umldesigner.Message;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.CreateTableDialog;
 
 public class MainActivityListener implements View.OnClickListener {
     MainActivity mainActivity;

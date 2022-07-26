@@ -1,8 +1,8 @@
-package com.example.umldesigner.uml_activity.logic;
+package com.umldesigner.uml_activity.logic;
 
-import com.example.umldesigner.MainActivity;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
+import com.umldesigner.MainActivity;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

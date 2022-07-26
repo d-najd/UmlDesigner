@@ -1,4 +1,4 @@
-package com.example.umldesigner;
+package com.umldesigner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.example.umldesigner.uml_activity.logic.UmlObjectFactory;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.example.umldesigner.uml_activity.views.UmlBackground;
-import com.example.umldesigner.uml_activity.UmlListeners;
-import com.example.umldesigner.uml_activity.logic.UmlSingleton;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.logic.UmlObjectFactory;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.uml_activity.views.UmlBackground;
+import com.umldesigner.uml_activity.UmlListeners;
+import com.umldesigner.uml_activity.logic.UmlSingleton;
 
 import java.util.ArrayList;
 import java.util.Arrays;

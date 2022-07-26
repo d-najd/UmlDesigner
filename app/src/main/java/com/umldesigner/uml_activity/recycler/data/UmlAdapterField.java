@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.recycler.data;
+package com.umldesigner.uml_activity.recycler.data;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

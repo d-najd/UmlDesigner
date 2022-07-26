@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.logic;
+package com.umldesigner.uml_activity.logic;
 
 import android.annotation.SuppressLint;
 import android.view.View;
@@ -6,11 +6,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 
-import com.example.umldesigner.uml_activity.UmlListeners;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.example.umldesigner.uml_activity.views.UmlArrowPart;
-import com.example.umldesigner.uml_activity.views.UmlArrowView;
-import com.example.umldesigner.uml_activity.views.UmlTableView;
+import com.umldesigner.uml_activity.UmlListeners;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.uml_activity.views.UmlArrowPart;
+import com.umldesigner.uml_activity.views.UmlArrowView;
+import com.umldesigner.uml_activity.views.UmlTableView;
 
 import java.util.ArrayList;
 import java.util.Locale;

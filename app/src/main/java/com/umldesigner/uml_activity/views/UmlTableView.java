@@ -1,4 +1,4 @@
-package com.example.umldesigner.uml_activity.views;
+package com.umldesigner.uml_activity.views;
 
 import android.content.Context;
 import android.util.Log;
@@ -11,14 +11,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.umldesigner.R;
-import com.example.umldesigner.uml_activity.UmlListeners;
-import com.example.umldesigner.uml_activity.logic.UmlObject;
-import com.example.umldesigner.uml_activity.logic.UmlObjectType;
-import com.example.umldesigner.uml_activity.logic.UmlSingleton;
-import com.example.umldesigner.uml_activity.recycler.UmlAdapter;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.example.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
+import com.umldesigner.R;
+import com.umldesigner.uml_activity.UmlListeners;
+import com.umldesigner.uml_activity.logic.UmlObject;
+import com.umldesigner.uml_activity.logic.UmlObjectType;
+import com.umldesigner.uml_activity.logic.UmlSingleton;
+import com.umldesigner.uml_activity.recycler.UmlAdapter;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
 import java.util.Arrays;
