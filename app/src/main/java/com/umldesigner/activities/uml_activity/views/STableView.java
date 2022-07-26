@@ -1,4 +1,4 @@
-package com.umldesigner.uml_activity.views;
+package com.umldesigner.activities.uml_activity.views;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,19 +11,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.logic.UmlObject;
-import com.umldesigner.uml_activity.logic.UmlObjectType;
-import com.umldesigner.uml_activity.logic.UmlSingleton;
-import com.umldesigner.uml_activity.recycler.UmlAdapter;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
+import com.umldesigner.activities.uml_activity.recyclers.UmlAdapter;
+import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
+import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterTableData;
+import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
+import com.umldesigner.infrastructure.uml.logic.SObjectType;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
 import java.util.ArrayList;
 
-public class UmlTableView extends ConstraintLayout implements UmlObject {
+import lombok.Getter;
+
+public class STableView extends ConstraintLayout implements UmlObject {
     private UmlAdapterTableData data;
-    private final UmlObjectType type;
-    private final Integer Uuid;
+    
+    /**
+     * TODO switch to this kind of data
+     */
+    //private STablePojo data;
+    private final SSettingsSingleton umlSettingsInstance;
+    @Getter
+    private final SObjectType type;
+    private final Integer id;
     
     /**
      * creates UmlTableView at given position and with given listeners if given
@@ -45,21 +54,22 @@ public class UmlTableView extends ConstraintLayout implements UmlObject {
      * different collider (not the same as the title) as to be able to set connections with only
      * dragging the field and change its settings
      */
-    public UmlTableView(@NonNull Context context, String title, float x, float y,
-                        ArrayList<UmlAdapterFieldData> fieldData){
+    public STableView(@NonNull Context context, String title, float x, float y,
+                      ArrayList<UmlAdapterFieldDataDataImpl> fieldData){
         super(context);
+        umlSettingsInstance = SSettingsSingleton.getInstance();
         LayoutInflater inflater = LayoutInflater.from(context);
         View v = inflater.inflate(R.layout.card_uml_table, this, true);
         
-        type = UmlObjectType.Arrow;
-        Uuid = UmlSingleton.UuidCounter++;
-        this.setTag(UmlObjectType.Arrow.toString());
-        this.setId(Uuid);
+        type = SObjectType.Arrow;
+        id = umlSettingsInstance.getNextId();
+        this.setTag(SObjectType.Arrow.toString());
+        this.setId(id);
         this.setX(x);
         this.setY(y);
-        this.setElevation(UmlSingleton.TABLE_ELEVATION);
+        this.setElevation(umlSettingsInstance.getTABLE_ELEVATION());
         this.setBackgroundColor(2131034697); //color of R.color.red somehow
-        UmlSingleton.allExistingViewTags.put(Uuid, this);
+        umlSettingsInstance.allViewTagsPut(this.getId(), this);
         
         TextView titleTextView = v.findViewById(R.id.title);
         titleTextView.setText(title);
@@ -73,19 +83,9 @@ public class UmlTableView extends ConstraintLayout implements UmlObject {
     }
     
     @Override
-    public UmlObjectType getType() {
-        return type;
-    }
-    
-    @Override
-    public Integer getUuid() {
-        return Uuid;
-    }
-    
-    @Override
     public void move(float x, float y) {
-        float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
-        float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
+        float newX = Math.round((x - this.getWidth() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
+        float newY = Math.round((y - this.getHeight() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
     
         this.setX(newX);
         this.setY(newY);

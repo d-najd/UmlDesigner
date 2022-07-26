@@ -1,43 +1,45 @@
-package com.umldesigner.uml_activity.views;
+package com.umldesigner.activities.uml_activity.views;
 
 import android.util.Log;
 import android.view.View;
 
 import com.umldesigner.Message;
-import com.umldesigner.uml_activity.logic.UmlSingleton;
-import com.umldesigner.uml_activity.logic.UmlObject;
-import com.umldesigner.uml_activity.logic.UmlObjectType;
+import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
+import com.umldesigner.infrastructure.uml.logic.SObjectType;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
-public class UmlArrowPart extends View implements UmlObject {
-    private final Integer Uuid;
-    private final UmlObjectType type;
-    private final UmlArrowView parent;
-
-    public UmlArrowPart(UmlArrowView parent, UmlObjectType type) {
+public class SArrowPart extends View implements UmlObject {
+    private final Integer id;
+    private final SObjectType type;
+    private final SArrowView parent;
+    private final SSettingsSingleton umlSettingsInstance;
+    
+    public SArrowPart(SArrowView parent, SObjectType type) {
         super(parent.getContext());
-        this.Uuid = UmlSingleton.UuidCounter++;
+        umlSettingsInstance = SSettingsSingleton.getInstance();
+        this.id = umlSettingsInstance.getNextId();
         this.type = type;
         this.parent = parent;
-        this.setId(Uuid);
+        this.setId(id);
         this.setTag(type);
-        UmlSingleton.allExistingViewTags.put(Uuid, this);
+        umlSettingsInstance.allViewTagsPut(id, this);
         this.setMinimumWidth((int) parent.colliderSize);
         this.setMinimumHeight((int) parent.colliderSize);
-        setOnTouchListener(parent.umlListeners);
+        setOnTouchListener(parent.sListeners);
 
         parent.viewGroup.addView(this);
 
-        double angle = UmlArrowView.calculateAngle(parent.xStart, parent.yStart, parent.xEnd, parent.yEnd);
+        double angle = SArrowView.calculateAngle(parent.xStart, parent.yStart, parent.xEnd, parent.yEnd);
 
         switch (type){
             case ArrowHead:
-                this.setElevation(UmlSingleton.ARROW_HEAD_ELEVATION);
+                this.setElevation(umlSettingsInstance.getARROW_HEAD_ELEVATION());
                 this.setX(parent.xEnd - parent.colliderSize/2);
                 this.setY(parent.yEnd - parent.colliderSize/2);
                 this.setRotation((float) (angle + 180));
                 break;
             case ArrowBody:
-                this.setElevation(UmlSingleton.ARROW_BODY_ELEVATION);
+                this.setElevation(umlSettingsInstance.getARROW_BODY_ELEVATION());
                 this.setX(parent.xStart - parent.colliderSize/2);
                 this.setY(parent.yStart - parent.colliderSize/2);
                 this.setRotation((float) angle + 90);
@@ -47,19 +49,19 @@ public class UmlArrowPart extends View implements UmlObject {
                         Math.pow(parent.yStart - parent.yEnd, 2))) +  parent.colliderSize));
                 break;
             case ArrowBack:
-                this.setElevation(UmlSingleton.ARROW_BACK_ELEVATION);
+                this.setElevation(umlSettingsInstance.getARROW_BACK_ELEVATION());
                 this.setX(parent.xStart - parent.colliderSize/2);
                 this.setY(parent.yStart - parent.colliderSize/2);
                 this.setRotation((float) (angle + 180));
                 break;
             default:
                 Message.defErrMessage(parent.getContext());
-                Log.wtf("ERROR", "invalid tag entered in " + getClass().getSimpleName() + ": " + type.toString());
+                Log.wtf("ERROR", "invalid tag entered in " + getClass().getSimpleName() + ": " + type);
         }
     }
 
     @Override
-    public UmlObjectType getType() {
+    public SObjectType getType() {
         return type;
     }
 
@@ -77,7 +79,7 @@ public class UmlArrowPart extends View implements UmlObject {
                     parent.movePart(x, y, false);
                     break;
                 default:
-                    throw new IllegalAccessException("invalid arrow type entered " + type.toString());
+                    throw new IllegalAccessException("invalid arrow type entered " + type);
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -86,20 +88,6 @@ public class UmlArrowPart extends View implements UmlObject {
 
     @Override
     public void destroy() {
-        //Message.message(getContext(), "destroying arrowpart");
         throw new UnsupportedOperationException("need to implement the method..");
-
-        /*
-        if (this.arrowsPointed.containsValue(arrowPointed)) {
-            this.arrowsPointed.remove(gridFragmentArrowView, gridFragmentArrowView);
-            return true;
-        }
-        return false;
-         */
-    }
-
-    @Override
-    public Integer getUuid() {
-        return Uuid;
     }
 }

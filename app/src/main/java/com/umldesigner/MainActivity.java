@@ -1,26 +1,25 @@
 package com.umldesigner;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
-import com.umldesigner.R;
-import com.umldesigner.uml_activity.logic.UmlObjectFactory;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.umldesigner.uml_activity.views.UmlBackground;
-import com.umldesigner.uml_activity.UmlListeners;
-import com.umldesigner.uml_activity.logic.UmlSingleton;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.umldesigner.activities.uml_activity.SListeners;
+import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
+import com.umldesigner.activities.uml_activity.views.SBackground;
+import com.umldesigner.infrastructure.uml.logic.SObjectFactory;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity implements ReceiverInterface{
     private ViewGroup container;
-    private UmlObjectFactory umlObjectFactory;
+    private SObjectFactory sObjectFactory;
     public static float dp;
     
     @Override
@@ -29,20 +28,20 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
         setContentView(R.layout.activity_main);
 
         dp = getResources().getDisplayMetrics().density;
-        float spacing = UmlSingleton.spacing;
+        float spacing = SSettingsSingleton.getInstance().getSpacing();
         container = findViewById(R.id.container);
         
         listeners();
         
-        umlObjectFactory = new UmlObjectFactory(container, new CreateUmlGrid(container).getListeners());
+        sObjectFactory = new SObjectFactory(container, new CreateUmlGrid(container).getListeners());
     
-        UmlSingleton.getInstance();
+        SSettingsSingleton.getInstance();
         
         ArrayList<Object> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
-                new UmlAdapterFieldData("ProductId", "int"), new UmlAdapterFieldData("ProductName", "varchar(100)")));
+                new UmlAdapterFieldDataDataImpl("ProductId", "int"), new UmlAdapterFieldDataDataImpl("ProductName", "varchar(100)")));
     
-        container.addView((View) umlObjectFactory.create("umltable", "stonks", new float[]{3 * spacing, 3 * spacing}, umlAdapterFieldArrayList));
-        container.addView((View) umlObjectFactory.create("arrow",
+        container.addView((View) sObjectFactory.create("umltable", "stonks", new float[]{3 * spacing, 3 * spacing}, umlAdapterFieldArrayList));
+        container.addView((View) sObjectFactory.create("arrow",
                 new float[]{3.5f * spacing, 13f * spacing, 9.5f * spacing, 18f * spacing}));
     }
     
@@ -50,8 +49,8 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
      * @apiNote unable to store this anywhere as a static reference because it is part of view and
      * it will cause static memory leak
      */
-    public UmlObjectFactory getUmlObjectFactory() {
-        return umlObjectFactory;
+    public SObjectFactory getUmlObjectFactory() {
+        return sObjectFactory;
     }
     
     public ViewGroup getContainer(){
@@ -71,27 +70,27 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
 }
 
 class CreateUmlGrid {
-    UmlListeners umlListeners;
+    SListeners sListeners;
     
     public CreateUmlGrid(ViewGroup container){
-        UmlBackground umlBackground = new UmlBackground(container.getContext());
-        umlBackground.setMinimumWidth(50000);
-        umlBackground.setMinimumHeight(50000);
-        container.addView(umlBackground);
+        SBackground sBackground = new SBackground(container.getContext());
+        sBackground.setMinimumWidth(50000);
+        sBackground.setMinimumHeight(50000);
+        container.addView(sBackground);
     
-        umlListeners = new UmlListeners(umlBackground);
+        sListeners = new SListeners(sBackground);
     
         ImageButton gridColliders = new ImageButton(container.getContext());
         gridColliders.setMinimumWidth(50000);
         gridColliders.setMinimumHeight(50000);
         gridColliders.setBackgroundColor(Color.parseColor("#00000000"));
         gridColliders.setTag("gridColliders");
-        gridColliders.setOnDragListener(umlListeners);
+        gridColliders.setOnDragListener(sListeners);
         gridColliders.setPadding(150, 150, 0, 0);
         container.addView(gridColliders);
     }
     
-    public UmlListeners getListeners(){
-        return umlListeners;
+    public SListeners getListeners(){
+        return sListeners;
     }
 }

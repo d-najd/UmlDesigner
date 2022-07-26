@@ -1,4 +1,4 @@
-package com.umldesigner.uml_activity;
+package com.umldesigner.activities.uml_activity;
 
 import android.annotation.SuppressLint;
 import android.content.ClipData;
@@ -7,16 +7,19 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.umldesigner.uml_activity.logic.UmlSingleton;
-import com.umldesigner.uml_activity.views.UmlBackground;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
+import com.umldesigner.activities.uml_activity.views.SBackground;
 
 import java.util.Objects;
 
-public class UmlListeners implements View.OnTouchListener, View.OnLongClickListener, View.OnDragListener {
-    public UmlBackground umlBackground;
+/**
+ * handles the schema listeners
+ */
+public class SListeners implements View.OnTouchListener, View.OnLongClickListener, View.OnDragListener {
+    public SBackground sBackground;
 
-    public UmlListeners(UmlBackground umlBackground){
-        this.umlBackground = umlBackground;
+    public SListeners(SBackground sBackground){
+        this.sBackground = sBackground;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -52,7 +55,7 @@ public class UmlListeners implements View.OnTouchListener, View.OnLongClickListe
                 clipData = event.getClipDescription().getLabel().toString();
                 Integer int_clipData = Integer.parseInt(clipData);
                 //moving the UmlObject
-                Objects.requireNonNull(UmlSingleton.allExistingViewTags.get(int_clipData)).move(event.getX(), event.getY());
+                Objects.requireNonNull(SSettingsSingleton.getInstance().getAllUmlObjects().get(int_clipData)).move(event.getX(), event.getY());
                 return true;
             default:
                 return false;

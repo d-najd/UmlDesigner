@@ -1,0 +1,3 @@
+[submodule "app/src/main/java/com/umldesigner/submodules/UmlDesignerShared"]
+	path = app/src/main/java/com/umldesigner/submodules/UmlDesignerShared
+	url = https://github.com/d-najd/UmlDesignerShared

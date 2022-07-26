@@ -3,7 +3,7 @@ package com.umldesigner;
 import android.content.res.Resources;
 import android.view.View;
 
-import com.umldesigner.uml_activity.CreateTableDialog;
+import com.umldesigner.activities.uml_activity.CreateTableDialog;
 
 public class MainActivityListener implements View.OnClickListener {
     MainActivity mainActivity;

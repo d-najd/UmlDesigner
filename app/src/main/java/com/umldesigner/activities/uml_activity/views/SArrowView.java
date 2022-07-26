@@ -1,4 +1,4 @@
-package com.umldesigner.uml_activity.views;
+package com.umldesigner.activities.uml_activity.views;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -9,17 +9,19 @@ import android.view.ViewGroup;
 
 import com.umldesigner.MainActivity;
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.UmlListeners;
-import com.umldesigner.uml_activity.logic.UmlSingleton;
-import com.umldesigner.uml_activity.logic.UmlObject;
-import com.umldesigner.uml_activity.logic.UmlObjectType;
+import com.umldesigner.activities.uml_activity.SListeners;
+import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
+import com.umldesigner.infrastructure.uml.logic.SObjectType;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
-public class UmlArrowView extends View implements UmlObject {
+public class SArrowView extends View implements UmlObject {
     //http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
 
     private final int color = Color.argb(255, 150, 150, 150);
     private final float dp;
     public final float colliderSize;
+    
+    private final SSettingsSingleton umlSettingsInstance;
 
     //these 6 should only be used when creating the view, since the arrow position can change with moving it n stuff but these values don't update
     public final float xStart;
@@ -31,16 +33,16 @@ public class UmlArrowView extends View implements UmlObject {
     private final float yMinM;
 
     //the view that the head/back is following
-    private UmlArrowPart headFollowView;
-    private UmlArrowPart backFollowView;
-    private UmlArrowPart headCollider = null;
-    private UmlArrowPart backCollider = null;
-    private UmlArrowPart bodyCollider = null;
-    public final UmlListeners umlListeners;
+    private SArrowPart headFollowView;
+    private SArrowPart backFollowView;
+    private SArrowPart headCollider = null;
+    private SArrowPart backCollider = null;
+    private SArrowPart bodyCollider = null;
+    public final SListeners sListeners;
     public final ViewGroup viewGroup;
 
-    private final UmlObjectType type;
-    private final Integer Uuid;
+    private final SObjectType type;
+    private final Integer id;
 
     /**
      * sets a arrow which is following view/layout's
@@ -55,16 +57,17 @@ public class UmlArrowView extends View implements UmlObject {
      * @param yEnd ending y position of the arrow, the arrow head is located here
      * @param backFollowView the constraint layout that the back of the arrow is following, if not null xStart and yStart will be overridden
      * @param headFollowView the constraint layout that the arrow head is following, if not null xEnd and yEnd will be overridden
-     * @see #UmlArrowView(ViewGroup, float, float, float, float, UmlListeners)  
+     * @see #SArrowView(ViewGroup, float, float, float, float, SListeners)
      */
-    public UmlArrowView(ViewGroup viewGroup,
-                        float xStart, float yStart, float xEnd, float yEnd,
-                        UmlArrowPart backFollowView,
-                        UmlArrowPart headFollowView,
-                        UmlListeners umlListeners){
+    public SArrowView(ViewGroup viewGroup,
+                      float xStart, float yStart, float xEnd, float yEnd,
+                      SArrowPart backFollowView,
+                      SArrowPart headFollowView,
+                      SListeners sListeners){
         super(viewGroup.getContext());
-        type = UmlObjectType.Arrow;
-        Uuid = UmlSingleton.UuidCounter++;
+        umlSettingsInstance = SSettingsSingleton.getInstance();
+        type = SObjectType.Arrow;
+        id = umlSettingsInstance.getNextId();
         dp = MainActivity.dp;
         colliderSize = 36 * dp;
 
@@ -86,11 +89,11 @@ public class UmlArrowView extends View implements UmlObject {
 
         this.backFollowView = backFollowView;
         this.headFollowView = headFollowView;
-        this.umlListeners = umlListeners;
+        this.sListeners = sListeners;
         this.viewGroup = viewGroup;
-        this.setTag(UmlObjectType.Arrow.toString());
-        this.setId(Uuid);
-        UmlSingleton.allExistingViewTags.put(Uuid, this);
+        this.setTag(SObjectType.Arrow.toString());
+        this.setId(id);
+        umlSettingsInstance.allViewTagsPut(id, this);
     }
 
     /**
@@ -104,12 +107,12 @@ public class UmlArrowView extends View implements UmlObject {
      * @param yStart starting y position of the arrow
      * @param xEnd ending x position of the arrow, the arrow head is located here
      * @param yEnd ending y position of the arrow, the arrow head is located here
-     * @see #UmlArrowView(ViewGroup, float, float, float, float, UmlArrowPart, UmlArrowPart, UmlListeners) 
+     * @see #SArrowView(ViewGroup, float, float, float, float, SArrowPart, SArrowPart, SListeners)
      */
-    public UmlArrowView (ViewGroup viewGroup,
-                         float xStart, float yStart, float xEnd, float yEnd,
-                         UmlListeners umlListeners){
-        this(viewGroup, xStart, yStart, xEnd, yEnd, null, null, umlListeners);
+    public SArrowView(ViewGroup viewGroup,
+                      float xStart, float yStart, float xEnd, float yEnd,
+                      SListeners sListeners){
+        this(viewGroup, xStart, yStart, xEnd, yEnd, null, null, sListeners);
     } 
 
     @Override
@@ -123,7 +126,7 @@ public class UmlArrowView extends View implements UmlObject {
 
 
     @Override
-    public UmlObjectType getType() {
+    public SObjectType getType() {
         return type;
     }
 
@@ -136,8 +139,8 @@ public class UmlArrowView extends View implements UmlObject {
     public void move(float x, float y) {
         //new position of the arrow (the main part that is holding all the others), taking into
         //consideration the positions of the circles
-        float newX = Math.round((x - this.getWidth() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
-        float newY = Math.round((y - this.getHeight() / 2f) / (UmlSingleton.spacing)) * UmlSingleton.spacing;
+        float newX = Math.round((x - this.getWidth() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
+        float newY = Math.round((y - this.getHeight() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
 
         //difference between the starting positions and new positions, for ex arrow starts at 100
         //and new is 150, difference is 50, the difference is used because the different arrow parts
@@ -198,24 +201,19 @@ public class UmlArrowView extends View implements UmlObject {
 
         //checkIfOverView(newXPos, newYPos, head);
 
-        UmlArrowView newView;
+        SArrowView newView;
         if (head) {
-            newView = new UmlArrowView(viewGroup,
+            newView = new SArrowView(viewGroup,
                     startX, startY,
-                    newXPos, newYPos, backFollowView, headFollowView, umlListeners);
+                    newXPos, newYPos, backFollowView, headFollowView, sListeners);
         } else {
-            newView = new UmlArrowView(viewGroup,
+            newView = new SArrowView(viewGroup,
                     newXPos, newYPos,
-                    endX, endY, backFollowView, headFollowView, umlListeners);
+                    endX, endY, backFollowView, headFollowView, sListeners);
         }
 
         viewGroup.addView(newView);
         return newView;
-    }
-
-    @Override
-    public Integer getUuid() {
-        return Uuid;
     }
 
     /**
@@ -225,7 +223,7 @@ public class UmlArrowView extends View implements UmlObject {
      * @return the layout that the arrow will get constrained to
      */
 /*    private GridFragmentCustomConstraintLayout checkIfOverView(float xPos, float yPos, boolean head){
-        for (GridFragmentCustomConstraintLayout curView : GridFragmentSettings.allExistingViewTags) {
+        for (GridFragmentCustomConstraintLayout curView : GridFragmentSettings.allViewTags) {
             if (    //basically checking if the arrow is in bounds of the current view
                     (xPos >= curView.getX() && xPos <= curView.getX() + curView.getWidth()) &&
                             (yPos >= curView.getY() && yPos <= curView.getY() + curView.getHeight())){
@@ -267,9 +265,9 @@ public class UmlArrowView extends View implements UmlObject {
      */
 
     private void setCollision(){
-        headCollider = new UmlArrowPart(this, UmlObjectType.ArrowHead);
-        bodyCollider = new UmlArrowPart(this, UmlObjectType.ArrowBody);
-        backCollider = new UmlArrowPart(this, UmlObjectType.ArrowBack);
+        headCollider = new SArrowPart(this, SObjectType.ArrowHead);
+        bodyCollider = new SArrowPart(this, SObjectType.ArrowBody);
+        backCollider = new SArrowPart(this, SObjectType.ArrowBack);
 
         boolean debug = false;
         if (debug){
@@ -314,7 +312,7 @@ public class UmlArrowView extends View implements UmlObject {
      */
     private float[][] getArrowPaths(){
         float xScaling = .45f, yScaling = .6f;
-        float spacing = UmlSingleton.spacing;
+        float spacing = umlSettingsInstance.getSpacing();
 
         float[][] arrowPaths = {
                 {-1.8f * spacing * xScaling + xEnd , .9f * spacing * yScaling + yEnd}, //left
@@ -350,7 +348,7 @@ public class UmlArrowView extends View implements UmlObject {
      * @param cy the y position of where we want the starting point to be rotated around
      * @param angle the number of degrees we want to rotate
      * @param p the starting point
-     * @return rotated {@link UmlArrowView.Point} object
+     * @return rotated {@link SArrowView.Point} object
      * @see #calculateAngle(float, float, float, float)
      */
     public static Point rotate_point(double cx, double cy, double angle, Point p) {

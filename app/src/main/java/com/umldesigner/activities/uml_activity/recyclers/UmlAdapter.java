@@ -1,4 +1,4 @@
-package com.umldesigner.uml_activity.recycler;
+package com.umldesigner.activities.uml_activity.recyclers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
+import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
 
 import java.util.ArrayList;
 
 public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewHolder>{
-    private ArrayList<UmlAdapterFieldData> recyclerDataArrayList;
+    private ArrayList<UmlAdapterFieldDataDataImpl> recyclerDataArrayList;
     private Context context;
-    private UmlAdapterFieldData curData;
+    private UmlAdapterFieldDataDataImpl curData;
     private UmlRecyclerViewHolder curHolder;
     
-    public UmlAdapter(ArrayList<UmlAdapterFieldData> recyclerDataArrayList, Context context) {
+    public UmlAdapter(ArrayList<UmlAdapterFieldDataDataImpl> recyclerDataArrayList, Context context) {
         this.recyclerDataArrayList = recyclerDataArrayList;
         this.context = context;
     }
@@ -37,7 +37,6 @@ public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewH
     public void onBindViewHolder(@NonNull UmlRecyclerViewHolder holder, int position) {
         curData = recyclerDataArrayList.get(position);
         curHolder = holder;
-        
         
         holder.title.setText(new StringBuilder().append("- ").append(curData.getValue()).append(": ").append(curData.getType()).toString());
     }

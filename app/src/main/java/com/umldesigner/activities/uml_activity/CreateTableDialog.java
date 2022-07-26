@@ -1,4 +1,4 @@
-package com.umldesigner.uml_activity;
+package com.umldesigner.activities.uml_activity;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -10,8 +10,11 @@ import android.widget.EditText;
 import com.umldesigner.MainActivity;
 import com.umldesigner.Message;
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.logic.UmlObjectFactory;
+import com.umldesigner.infrastructure.uml.logic.SObjectFactory;
 
+/**
+ * the dialog used that pops up to when you create new table
+ */
 public class CreateTableDialog extends Dialog {
     MainActivity mainActivity;
     
@@ -51,12 +54,12 @@ public class CreateTableDialog extends Dialog {
                     EditText editText = dialog.findViewById(R.id.titleEdt);
                     String newTitle = editText.getText().toString();
                     
-                    UmlObjectFactory umlObjectFactory = mainActivity.getUmlObjectFactory();
+                    SObjectFactory sObjectFactory = mainActivity.getUmlObjectFactory();
                     
                     if(newTitle.isEmpty())
                         Message.message(v.getContext(), "Please define title");
                     else {
-                        mainActivity.getContainer().addView((View) umlObjectFactory.create("umlTable", newTitle, new float[]{0, 0}));
+                        mainActivity.getContainer().addView((View) sObjectFactory.create("umlTable", newTitle, new float[]{0, 0}));
                         dialog.dismiss();
                     }
                     break;
