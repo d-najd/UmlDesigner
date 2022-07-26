@@ -1,10 +1,7 @@
 package com.umldesigner.uml_activity.recycler.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

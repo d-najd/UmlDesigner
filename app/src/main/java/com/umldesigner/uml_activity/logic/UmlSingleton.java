@@ -1,7 +1,6 @@
 package com.umldesigner.uml_activity.logic;
 
 import com.umldesigner.MainActivity;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
 import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;

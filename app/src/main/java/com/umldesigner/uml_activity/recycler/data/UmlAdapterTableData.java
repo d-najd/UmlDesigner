@@ -1,7 +1,6 @@
 package com.umldesigner.uml_activity.recycler.data;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UmlAdapterTableData extends UmlAdapterTable{
     public UmlAdapterTableData(String title, Integer x, Integer y) {

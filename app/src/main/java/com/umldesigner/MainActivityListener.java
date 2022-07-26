@@ -1,18 +1,8 @@
 package com.umldesigner;
 
-import android.content.DialogInterface;
 import android.content.res.Resources;
-import android.text.Html;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewParent;
-import android.widget.EditText;
 
-import androidx.appcompat.app.AlertDialog;
-
-import com.umldesigner.MainActivity;
-import com.umldesigner.Message;
-import com.umldesigner.R;
 import com.umldesigner.uml_activity.CreateTableDialog;
 
 public class MainActivityListener implements View.OnClickListener {

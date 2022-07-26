@@ -10,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterField;
 import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
-import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
 

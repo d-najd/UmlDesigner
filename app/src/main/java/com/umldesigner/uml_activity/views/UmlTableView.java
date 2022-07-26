@@ -1,7 +1,6 @@
 package com.umldesigner.uml_activity.views;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.uml_activity.UmlListeners;
 import com.umldesigner.uml_activity.logic.UmlObject;
 import com.umldesigner.uml_activity.logic.UmlObjectType;
 import com.umldesigner.uml_activity.logic.UmlSingleton;
@@ -21,8 +19,6 @@ import com.umldesigner.uml_activity.recycler.data.UmlAdapterFieldData;
 import com.umldesigner.uml_activity.recycler.data.UmlAdapterTableData;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class UmlTableView extends ConstraintLayout implements UmlObject {
     private UmlAdapterTableData data;
