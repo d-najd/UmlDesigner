@@ -2,7 +2,7 @@
 
 App used for designing uml diagams in multiple ways 
 
-![Code Quality](https://img.shields.io/codefactor/grade/github/d-najd/umldesigner) ![Repo Size](https://img.shields.io/github/repo-size/d-najd/UmlDesigner)
+![Repo Size](https://img.shields.io/github/repo-size/d-najd/UmlDesigner)
 
 ## Setup
 
