@@ -26,5 +26,5 @@ After the cloning of the repository is done open android studio and go to File->
  (todo build the app automatically and send a link here, jenkins and gitlab might be used for this?)
 
 ## Related Projects
- Backend for the app https://github.com/d-najd/UmlDesigner
- Shared repository (submodule) which is used between the projects https://github.com/d-najd/UmlDesignerShared
+ - Backend for the app https://github.com/d-najd/UmlDesigner
+ - Shared repository (submodule) which is used between the projects https://github.com/d-najd/UmlDesignerShared
