@@ -10,17 +10,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
+import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 
 import java.util.ArrayList;
 
 public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewHolder>{
-    private ArrayList<UmlAdapterFieldDataDataImpl> recyclerDataArrayList;
+    private ArrayList<SItemData> recyclerDataArrayList;
     private Context context;
-    private UmlAdapterFieldDataDataImpl curData;
+    private SItemData curData;
     private UmlRecyclerViewHolder curHolder;
     
-    public UmlAdapter(ArrayList<UmlAdapterFieldDataDataImpl> recyclerDataArrayList, Context context) {
+    public UmlAdapter(ArrayList<SItemData> recyclerDataArrayList, Context context) {
         this.recyclerDataArrayList = recyclerDataArrayList;
         this.context = context;
     }

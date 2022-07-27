@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.umldesigner.activities.uml_activity.SListeners;
-import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
+import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.activities.uml_activity.views.SArrowPart;
 import com.umldesigner.activities.uml_activity.views.SArrowView;
 import com.umldesigner.activities.uml_activity.views.STableView;
-import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
+import com.umldesigner.infrastructure.uml.entities.UmlObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
@@ -86,11 +86,11 @@ public class SObjectFactory {
                 /* turns the arraylist of Objects into a arraylist of UmlAdapterFieldData, basically
                     just casts it, and if the objects are null creates new arraylist
                  */
-        ArrayList<UmlAdapterFieldDataDataImpl> tableData = objects != null ?
-                (ArrayList<UmlAdapterFieldDataDataImpl>) objects.parallelStream()
-                .map(e -> (UmlAdapterFieldDataDataImpl) e).collect(Collectors.toList()) : new ArrayList<>();
+        ArrayList<SItemData> tableData = objects != null ?
+                (ArrayList<SItemData>) objects.parallelStream()
+                .map(e -> (SItemData) e).collect(Collectors.toList()) : new ArrayList<>();
         STableView sTableView = new STableView(container.getContext(), title, positions[0], positions[1],
-                (ArrayList<UmlAdapterFieldDataDataImpl>) tableData);
+                (ArrayList<SItemData>) tableData);
         sTableView.setOnTouchListener(sListeners);
         return sTableView;
     }

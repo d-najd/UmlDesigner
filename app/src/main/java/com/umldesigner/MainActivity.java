@@ -9,8 +9,8 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.umldesigner.activities.uml_activity.SListeners;
-import com.umldesigner.activities.uml_activity.recyclers.data.UmlAdapterFieldDataDataImpl;
 import com.umldesigner.activities.uml_activity.views.SBackground;
+import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.infrastructure.uml.logic.SObjectFactory;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
         SSettingsSingleton.getInstance();
         
         ArrayList<Object> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
-                new UmlAdapterFieldDataDataImpl("ProductId", "int"), new UmlAdapterFieldDataDataImpl("ProductName", "varchar(100)")));
+                new SItemData("ProductId", "int"), new SItemData("ProductName", "varchar(100)")));
     
         container.addView((View) sObjectFactory.create("umltable", "stonks", new float[]{3 * spacing, 3 * spacing}, umlAdapterFieldArrayList));
         container.addView((View) sObjectFactory.create("arrow",

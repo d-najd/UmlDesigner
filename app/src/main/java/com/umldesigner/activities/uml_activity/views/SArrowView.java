@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import com.umldesigner.MainActivity;
 import com.umldesigner.R;
 import com.umldesigner.activities.uml_activity.SListeners;
-import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
-import com.umldesigner.infrastructure.uml.logic.SObjectType;
+import com.umldesigner.infrastructure.uml.data.BaseDataInterface;
+import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
+import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
 public class SArrowView extends View implements UmlObject {
     //http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
@@ -41,7 +43,6 @@ public class SArrowView extends View implements UmlObject {
     public final SListeners sListeners;
     public final ViewGroup viewGroup;
 
-    private final SObjectType type;
     private final Integer id;
 
     /**
@@ -66,7 +67,6 @@ public class SArrowView extends View implements UmlObject {
                       SListeners sListeners){
         super(viewGroup.getContext());
         umlSettingsInstance = SSettingsSingleton.getInstance();
-        type = SObjectType.Arrow;
         id = umlSettingsInstance.getNextId();
         dp = MainActivity.dp;
         colliderSize = 36 * dp;
@@ -91,7 +91,6 @@ public class SArrowView extends View implements UmlObject {
         this.headFollowView = headFollowView;
         this.sListeners = sListeners;
         this.viewGroup = viewGroup;
-        this.setTag(SObjectType.Arrow.toString());
         this.setId(id);
         umlSettingsInstance.allViewTagsPut(id, this);
     }
@@ -122,12 +121,6 @@ public class SArrowView extends View implements UmlObject {
         drawLine(canvas);
         drawArrow(canvas);
         setCollision();
-    }
-
-
-    @Override
-    public SObjectType getType() {
-        return type;
     }
 
 
@@ -167,7 +160,17 @@ public class SArrowView extends View implements UmlObject {
         //Message.message(getContext(), "destroying arrow fully");
         throw new UnsupportedOperationException("need to implement the method..");
     }
-
+    
+    @Override
+    public <T extends BasePojo & BaseDataInterface> void setData(T data) {
+       throw new UnsupportedOperationException("need to implement the method...");
+    }
+    
+    @Override
+    public void updateData() {
+    
+    }
+    
     /**
      * moves the head or back to a given position, for example
      *
@@ -265,9 +268,9 @@ public class SArrowView extends View implements UmlObject {
      */
 
     private void setCollision(){
-        headCollider = new SArrowPart(this, SObjectType.ArrowHead);
-        bodyCollider = new SArrowPart(this, SObjectType.ArrowBody);
-        backCollider = new SArrowPart(this, SObjectType.ArrowBack);
+        headCollider = new SArrowPart(this, SArrowParts.ArrowHead);
+        bodyCollider = new SArrowPart(this, SArrowParts.ArrowBody);
+        backCollider = new SArrowPart(this, SArrowParts.ArrowBack);
 
         boolean debug = false;
         if (debug){

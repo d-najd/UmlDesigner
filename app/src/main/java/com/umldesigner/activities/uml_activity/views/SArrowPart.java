@@ -4,24 +4,25 @@ import android.util.Log;
 import android.view.View;
 
 import com.umldesigner.Message;
-import com.umldesigner.infrastructure.uml.interfaces.UmlObject;
-import com.umldesigner.infrastructure.uml.logic.SObjectType;
+import com.umldesigner.infrastructure.uml.data.BaseDataInterface;
+import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
+import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
 public class SArrowPart extends View implements UmlObject {
     private final Integer id;
-    private final SObjectType type;
+    private final SArrowParts type;
     private final SArrowView parent;
     private final SSettingsSingleton umlSettingsInstance;
     
-    public SArrowPart(SArrowView parent, SObjectType type) {
+    public SArrowPart(SArrowView parent, SArrowParts type) {
         super(parent.getContext());
         umlSettingsInstance = SSettingsSingleton.getInstance();
         this.id = umlSettingsInstance.getNextId();
         this.type = type;
         this.parent = parent;
         this.setId(id);
-        this.setTag(type);
         umlSettingsInstance.allViewTagsPut(id, this);
         this.setMinimumWidth((int) parent.colliderSize);
         this.setMinimumHeight((int) parent.colliderSize);
@@ -61,11 +62,6 @@ public class SArrowPart extends View implements UmlObject {
     }
 
     @Override
-    public SObjectType getType() {
-        return type;
-    }
-
-    @Override
     public void move(float x, float y) {
         try {
             switch (type) {
@@ -89,5 +85,15 @@ public class SArrowPart extends View implements UmlObject {
     @Override
     public void destroy() {
         throw new UnsupportedOperationException("need to implement the method..");
+    }
+    
+    @Override
+    public <T extends BasePojo & BaseDataInterface> void setData(T data) {
+       throw new UnsupportedOperationException("need to implement the method...");
+    }
+    
+    @Override
+    public void updateData() {
+        throw new UnsupportedOperationException("need to implement the method...");
     }
 }

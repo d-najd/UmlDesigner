@@ -1,4 +1,4 @@
-package com.umldesigner.infrastructure.uml.interfaces;
+package com.umldesigner.infrastructure.uml.entities;
 
 /**
  * defines that an object is movable, this is android specific and should not be added to the shared
