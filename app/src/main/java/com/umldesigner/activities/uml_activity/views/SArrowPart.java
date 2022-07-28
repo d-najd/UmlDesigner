@@ -5,12 +5,12 @@ import android.view.View;
 
 import com.umldesigner.Message;
 import com.umldesigner.infrastructure.uml.data.BaseDataInterface;
-import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.infrastructure.uml.entities.SObject;
 import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
-public class SArrowPart extends View implements UmlObject {
+public class SArrowPart extends View implements SObject {
     private final Integer id;
     private final SArrowParts type;
     private final SArrowView parent;

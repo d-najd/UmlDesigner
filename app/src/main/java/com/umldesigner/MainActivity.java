@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.umldesigner.activities.uml_activity.SListeners;
 import com.umldesigner.activities.uml_activity.views.SBackground;
+import com.umldesigner.activities.uml_activity.views.STable.STableView;
+import com.umldesigner.activities.uml_activity.views.STable.STableBuilder;
 import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.infrastructure.uml.logic.SObjectFactory;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
@@ -21,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
     private ViewGroup container;
     private SObjectFactory sObjectFactory;
     public static float dp;
+    public static SListeners listeners;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +34,22 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
         float spacing = SSettingsSingleton.getInstance().getSpacing();
         container = findViewById(R.id.container);
         
-        listeners();
+        listeners = listeners();
         
-        sObjectFactory = new SObjectFactory(container, new CreateUmlGrid(container).getListeners());
-    
-        SSettingsSingleton.getInstance();
+        //Depricated
+        sObjectFactory = new SObjectFactory(container, listeners);
         
-        ArrayList<Object> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
+        ArrayList<SItemData> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
                 new SItemData("ProductId", "int"), new SItemData("ProductName", "varchar(100)")));
-    
-        container.addView((View) sObjectFactory.create("umltable", "stonks", new float[]{3 * spacing, 3 * spacing}, umlAdapterFieldArrayList));
-        container.addView((View) sObjectFactory.create("arrow",
-                new float[]{3.5f * spacing, 13f * spacing, 9.5f * spacing, 18f * spacing}));
+        
+        STableView sTableView = new STableBuilder(this, listeners, "title", 1f, 1f)
+                .addItems(umlAdapterFieldArrayList)
+                .build();
+        
+        container.addView((View) sTableView);
+        //depricated, replace with builder in future
+        //container.addView((View) sObjectFactory.create("arrow",
+        //        new float[]{3.5f * spacing, 13f * spacing, 9.5f * spacing, 18f * spacing}));
     }
     
     /**
@@ -57,10 +64,15 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
         return container;
     }
     
-    private void listeners(){
+    /**
+     * creates a instance of SListeners which are listeners for the background and are used for
+     * setting collision for the Schema Items
+     */
+    private SListeners listeners(){
         View fab = findViewById(R.id.createTableFab);
-        
         fab.setOnClickListener(new MainActivityListener(this));
+     
+        return new CreateUmlGrid(container).getListeners();
     }
     
     @Override

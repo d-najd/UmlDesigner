@@ -11,12 +11,12 @@ import com.umldesigner.MainActivity;
 import com.umldesigner.R;
 import com.umldesigner.activities.uml_activity.SListeners;
 import com.umldesigner.infrastructure.uml.data.BaseDataInterface;
-import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.infrastructure.uml.entities.SObject;
 import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
-public class SArrowView extends View implements UmlObject {
+public class SArrowView extends View implements SObject {
     //http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
 
     private final int color = Color.argb(255, 150, 150, 150);

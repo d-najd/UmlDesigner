@@ -7,15 +7,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.umldesigner.activities.uml_activity.SListeners;
-import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.activities.uml_activity.views.SArrowPart;
 import com.umldesigner.activities.uml_activity.views.SArrowView;
-import com.umldesigner.activities.uml_activity.views.STableView;
-import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.activities.uml_activity.views.STable.STableView;
+import com.umldesigner.infrastructure.uml.entities.SObject;
 
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 /**
  * rework this so it uses builder and uses enum instead of String type
@@ -33,24 +31,24 @@ public class SObjectFactory {
         this.container = container;
     }
     
-    public UmlObject create(String type, float[] positions){
+    public SObject create(String type, float[] positions){
         return create(type, null, positions, null, null);
     }
     
-    public UmlObject create(String type, String title, float[] positions){
+    public SObject create(String type, String title, float[] positions){
         return create(type, title, positions, null, null);
     }
     
-    public UmlObject create(String type, String title, float[] positions, ArrayList<Object> objects){
+    public SObject create(String type, String title, float[] positions, ArrayList<Object> objects){
         return create(type, title, positions, null,  objects);
     }
     
-    public UmlObject create(String type, float[] positions, View[] views){
+    public SObject create(String type, float[] positions, View[] views){
         return create(type, null, positions, views, null);
     }
     
     @SuppressLint("ClickableViewAccessibility")
-    public UmlObject create(String type, String title, float[] positions, View[] views, ArrayList<Object> objects){
+    public SObject create(String type, String title, float[] positions, View[] views, ArrayList<Object> objects){
         switch (type.toLowerCase(Locale.ROOT)){
             case "arrow":
                 return createUmlArrow(positions, views);
@@ -78,20 +76,6 @@ public class SObjectFactory {
     
     @NonNull
     private STableView createUmlTable(String title, float[] positions, ArrayList<Object> objects) {
-        if (title == null)
-            throw new IllegalStateException("creating UmlTables requires them to have a name");
-        if (positions.length != 2)
-            throw new IllegalStateException("creating UmlTables requires them to have x and y position, nothing more nothing less");
-                
-                /* turns the arraylist of Objects into a arraylist of UmlAdapterFieldData, basically
-                    just casts it, and if the objects are null creates new arraylist
-                 */
-        ArrayList<SItemData> tableData = objects != null ?
-                (ArrayList<SItemData>) objects.parallelStream()
-                .map(e -> (SItemData) e).collect(Collectors.toList()) : new ArrayList<>();
-        STableView sTableView = new STableView(container.getContext(), title, positions[0], positions[1],
-                (ArrayList<SItemData>) tableData);
-        sTableView.setOnTouchListener(sListeners);
-        return sTableView;
+        return null;
     }
 }

@@ -1,31 +1,29 @@
-package com.umldesigner.activities.uml_activity.views;
+package com.umldesigner.activities.uml_activity.views.STable;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.umldesigner.R;
-import com.umldesigner.activities.uml_activity.recyclers.UmlAdapter;
+import com.umldesigner.activities.uml_activity.recyclers.SAdapter;
 import com.umldesigner.infrastructure.uml.data.BaseDataInterface;
 import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.infrastructure.uml.data.STable.STableData;
-import com.umldesigner.infrastructure.uml.entities.UmlObject;
+import com.umldesigner.infrastructure.uml.entities.SObject;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
 import java.util.ArrayList;
 
-public class STableView extends ConstraintLayout implements UmlObject {
+
+public class STableView extends ConstraintLayout implements SObject {
     
-    private STableData data;
     private final SSettingsSingleton umlSettingsInstance;
-    
+    private STableData data;
     private View v;
     
     /**
@@ -40,26 +38,22 @@ public class STableView extends ConstraintLayout implements UmlObject {
      *      _______________
      * </pre>
      *
-     * @param title title of the table
-     * @param x absolute position on the grid (not taking into account the circles)
-     * @param y absolute position on the grid (not taking into account the circles)
-     * @param SItemData data of all of the fields in the recyclerview
-     * @implNote the collision is not done here and each field in the recyclerView should have a
-     * different collider (not the same as the title) as to be able to set connections with only
-     * dragging the field and change its settings
+     * TODO there is a bug if there are no items the table is not movable
+     *
+     * @param           builder which holds all of the data
+     * @implNote        builder is used because we want to make sure STableView is made from the
+     *                  builder
      */
-    public STableView(@NonNull Context context, String title, float x, float y,
-                      ArrayList<SItemData> SItemData){
-        super(context);
+    public STableView(STableBuilder builder){
+        super(builder.getContext());
         umlSettingsInstance = SSettingsSingleton.getInstance();
-        
+    
         //setting up the data
-        //TODO make this add the data of the items as well
-        setData(new STableData(umlSettingsInstance.getNextId(), x, y, title));
+        setData(new STableData(umlSettingsInstance.getNextId(), builder.getX(), builder.getY(), builder.getTitle(), builder.getItems()));
         umlSettingsInstance.allViewTagsPut(data.getId(), this);
-        
+    
         //inflating the view
-        LayoutInflater inflater = LayoutInflater.from(context);
+        LayoutInflater inflater = LayoutInflater.from(builder.getContext());
         v = inflater.inflate(R.layout.card_uml_table, this, true);
     
         //setting the fields inside the table
@@ -70,21 +64,27 @@ public class STableView extends ConstraintLayout implements UmlObject {
         this.setElevation(umlSettingsInstance.getTABLE_ELEVATION());
         this.setBackgroundColor(2131034697); //color of R.color.red somehow
         titleTextView.setText(data.getTitle());
+   
+            //setting up the recyclerview
+            RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
     
-        //setting up the recyclerview
-        RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
-        UmlAdapter adapter = new UmlAdapter(SItemData, v.getContext());
+            LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+            umlTableRecyclerView.setLayoutManager(layoutManager);
+        
+        if (builder.getItems() != null){
     
-        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
-        umlTableRecyclerView.setLayoutManager(layoutManager);
-        umlTableRecyclerView.setAdapter(adapter);
+            SAdapter adapter = new SAdapter(builder.getItems(), v.getContext());
+            umlTableRecyclerView.setAdapter(adapter);
+        }
+        
+        updateData(); //making sure nothing breaks in the future
     }
     
     @Override
     public void move(float x, float y) {
         float newX = Math.round((x - this.getWidth() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
         float newY = Math.round((y - this.getHeight() / 2f) / (umlSettingsInstance.getSpacing())) * umlSettingsInstance.getSpacing();
-    
+        
         this.setX(newX);
         this.setY(newY);
         
@@ -98,17 +98,46 @@ public class STableView extends ConstraintLayout implements UmlObject {
     
     @Override
     public <T extends BasePojo & BaseDataInterface> void setData(T data) {
-        this.data = (STableData)data;
+        this.data = (STableData) data;
     }
     
     @Override
     public void updateData() {
         //prep
         TextView titleTextView = v.findViewById(R.id.title);
-   
+        
         //updating the data
         data.setTitle(titleTextView.getText().toString());
         data.setX(this.getX());
         data.setY(this.getY());
+    }
+    
+    /**
+     * sets the title of the Table View but does not guarantee updating the data, use {@link #updateData()} for that
+     *
+     * @param title the title that we are setting the view to
+     * @see #updateData()
+     */
+    public void setTitle(String title) {
+        TextView titleTextView = v.findViewById(R.id.title);
+        
+        titleTextView.setText(title);
+    }
+    
+    /**
+     * sets the itemData to given ArrayList but does not guarantee updating the data, use {@link #updateData()} for that
+     *
+     * @param itemDataArrayList the given itemArrayList
+     * @see #updateData()
+     */
+    public void setSItemData(ArrayList<SItemData> itemDataArrayList) {
+        data.setItems(itemDataArrayList);
+        
+        RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
+        SAdapter adapter = new SAdapter(itemDataArrayList, v.getContext());
+        
+        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+        umlTableRecyclerView.setLayoutManager(layoutManager);
+        umlTableRecyclerView.setAdapter(adapter);
     }
 }

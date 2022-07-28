@@ -14,13 +14,13 @@ import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 
 import java.util.ArrayList;
 
-public class UmlAdapter extends RecyclerView.Adapter<UmlAdapter.UmlRecyclerViewHolder>{
+public class SAdapter extends RecyclerView.Adapter<SAdapter.UmlRecyclerViewHolder>{
     private ArrayList<SItemData> recyclerDataArrayList;
     private Context context;
     private SItemData curData;
     private UmlRecyclerViewHolder curHolder;
     
-    public UmlAdapter(ArrayList<SItemData> recyclerDataArrayList, Context context) {
+    public SAdapter(ArrayList<SItemData> recyclerDataArrayList, Context context) {
         this.recyclerDataArrayList = recyclerDataArrayList;
         this.context = context;
     }
