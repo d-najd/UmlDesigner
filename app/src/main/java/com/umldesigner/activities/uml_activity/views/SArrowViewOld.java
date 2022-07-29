@@ -16,7 +16,10 @@ import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
-public class SArrowView extends View implements SObject {
+/**
+ * @deprecated
+ */
+public class SArrowViewOld extends View implements SObject {
     //http://blogs.sitepointstatic.com/examples/tech/canvas-curves/bezier-curve.html
 
     private final int color = Color.argb(255, 150, 150, 150);
@@ -58,13 +61,13 @@ public class SArrowView extends View implements SObject {
      * @param yEnd ending y position of the arrow, the arrow head is located here
      * @param backFollowView the constraint layout that the back of the arrow is following, if not null xStart and yStart will be overridden
      * @param headFollowView the constraint layout that the arrow head is following, if not null xEnd and yEnd will be overridden
-     * @see #SArrowView(ViewGroup, float, float, float, float, SListeners)
+     * @see #SArrowViewOld(ViewGroup, float, float, float, float, SListeners)
      */
-    public SArrowView(ViewGroup viewGroup,
-                      float xStart, float yStart, float xEnd, float yEnd,
-                      SArrowPart backFollowView,
-                      SArrowPart headFollowView,
-                      SListeners sListeners){
+    public SArrowViewOld(ViewGroup viewGroup,
+                         float xStart, float yStart, float xEnd, float yEnd,
+                         SArrowPart backFollowView,
+                         SArrowPart headFollowView,
+                         SListeners sListeners){
         super(viewGroup.getContext());
         umlSettingsInstance = SSettingsSingleton.getInstance();
         id = umlSettingsInstance.getNextId();
@@ -106,11 +109,11 @@ public class SArrowView extends View implements SObject {
      * @param yStart starting y position of the arrow
      * @param xEnd ending x position of the arrow, the arrow head is located here
      * @param yEnd ending y position of the arrow, the arrow head is located here
-     * @see #SArrowView(ViewGroup, float, float, float, float, SArrowPart, SArrowPart, SListeners)
+     * @see #SArrowViewOld(ViewGroup, float, float, float, float, SArrowPart, SArrowPart, SListeners)
      */
-    public SArrowView(ViewGroup viewGroup,
-                      float xStart, float yStart, float xEnd, float yEnd,
-                      SListeners sListeners){
+    public SArrowViewOld(ViewGroup viewGroup,
+                         float xStart, float yStart, float xEnd, float yEnd,
+                         SListeners sListeners){
         this(viewGroup, xStart, yStart, xEnd, yEnd, null, null, sListeners);
     } 
 
@@ -204,13 +207,13 @@ public class SArrowView extends View implements SObject {
 
         //checkIfOverView(newXPos, newYPos, head);
 
-        SArrowView newView;
+        SArrowViewOld newView;
         if (head) {
-            newView = new SArrowView(viewGroup,
+            newView = new SArrowViewOld(viewGroup,
                     startX, startY,
                     newXPos, newYPos, backFollowView, headFollowView, sListeners);
         } else {
-            newView = new SArrowView(viewGroup,
+            newView = new SArrowViewOld(viewGroup,
                     newXPos, newYPos,
                     endX, endY, backFollowView, headFollowView, sListeners);
         }
@@ -351,7 +354,7 @@ public class SArrowView extends View implements SObject {
      * @param cy the y position of where we want the starting point to be rotated around
      * @param angle the number of degrees we want to rotate
      * @param p the starting point
-     * @return rotated {@link SArrowView.Point} object
+     * @return rotated {@link SArrowViewOld.Point} object
      * @see #calculateAngle(float, float, float, float)
      */
     public static Point rotate_point(double cx, double cy, double angle, Point p) {

@@ -7,10 +7,8 @@ import android.view.DragEvent;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.activities.uml_activity.views.SBackground;
-
-import java.util.Objects;
+import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 
 /**
  * handles the schema listeners
@@ -55,7 +53,7 @@ public class SListeners implements View.OnTouchListener, View.OnLongClickListene
                 clipData = event.getClipDescription().getLabel().toString();
                 Integer int_clipData = Integer.parseInt(clipData);
                 //moving the UmlObject
-                Objects.requireNonNull(SSettingsSingleton.getInstance().getAllUmlObjects().get(int_clipData)).move(event.getX(), event.getY());
+                SSettingsSingleton.getInstance().moveViewAbsolute(int_clipData, event.getX(), event.getY());
                 return true;
             default:
                 return false;

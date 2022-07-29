@@ -1,4 +1,4 @@
-package com.umldesigner.activities.uml_activity.views.STable;
+package com.umldesigner.activities.uml_activity.views.table;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,10 +19,12 @@ import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.Ba
 
 import java.util.ArrayList;
 
+import lombok.Getter;
 
 public class STableView extends ConstraintLayout implements SObject {
     
     private final SSettingsSingleton umlSettingsInstance;
+    @Getter
     private STableData data;
     private View v;
     
@@ -38,18 +40,23 @@ public class STableView extends ConstraintLayout implements SObject {
      *      _______________
      * </pre>
      *
-     * TODO there is a bug if there are no items the table is not movable
-     *
      * @param           builder which holds all of the data
      * @implNote        builder is used because we want to make sure STableView is made from the
      *                  builder
      */
     public STableView(STableBuilder builder){
         super(builder.getContext());
+        
+        //prep
         umlSettingsInstance = SSettingsSingleton.getInstance();
-    
+        
         //setting up the data
-        setData(new STableData(umlSettingsInstance.getNextId(), builder.getX(), builder.getY(), builder.getTitle(), builder.getItems()));
+        setData(new STableData(
+                umlSettingsInstance.getNextId(),
+                builder.getX(),
+                builder.getY(),
+                builder.getTitle(),
+                builder.getItems()));
         umlSettingsInstance.allViewTagsPut(data.getId(), this);
     
         //inflating the view
@@ -59,25 +66,24 @@ public class STableView extends ConstraintLayout implements SObject {
         //setting the fields inside the table
         TextView titleTextView = v.findViewById(R.id.title);
         this.setId(data.getId());
-        this.setX(data.getX());
+        this.setX(data.getX()); //setting the absolute position
         this.setY(data.getY());
         this.setElevation(umlSettingsInstance.getTABLE_ELEVATION());
-        this.setBackgroundColor(2131034697); //color of R.color.red somehow
+        this.setBackgroundColor(2131034697);
         titleTextView.setText(data.getTitle());
    
-            //setting up the recyclerview
-            RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
+        //setting up the recyclerview
+        RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
     
-            LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
-            umlTableRecyclerView.setLayoutManager(layoutManager);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(v.getContext());
+        umlTableRecyclerView.setLayoutManager(layoutManager);
         
         if (builder.getItems() != null){
-    
             SAdapter adapter = new SAdapter(builder.getItems(), v.getContext());
             umlTableRecyclerView.setAdapter(adapter);
         }
         
-        updateData(); //making sure nothing breaks in the future
+        updateData(); // making sure the data gets updated in case I forget in the future
     }
     
     @Override
@@ -131,8 +137,6 @@ public class STableView extends ConstraintLayout implements SObject {
      * @see #updateData()
      */
     public void setSItemData(ArrayList<SItemData> itemDataArrayList) {
-        data.setItems(itemDataArrayList);
-        
         RecyclerView umlTableRecyclerView = v.findViewById(R.id.uml_table_recyclerView);
         SAdapter adapter = new SAdapter(itemDataArrayList, v.getContext());
         

@@ -10,13 +10,16 @@ import com.umldesigner.infrastructure.uml.logic.SArrowParts;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
 import com.umldesigner.submodules.UmlDesignerShared.infrastructure.pojo.pojos.BasePojo;
 
+/**
+ * @deprecated
+ */
 public class SArrowPart extends View implements SObject {
     private final Integer id;
     private final SArrowParts type;
-    private final SArrowView parent;
+    private final SArrowViewOld parent;
     private final SSettingsSingleton umlSettingsInstance;
     
-    public SArrowPart(SArrowView parent, SArrowParts type) {
+    public SArrowPart(SArrowViewOld parent, SArrowParts type) {
         super(parent.getContext());
         umlSettingsInstance = SSettingsSingleton.getInstance();
         this.id = umlSettingsInstance.getNextId();
@@ -30,7 +33,7 @@ public class SArrowPart extends View implements SObject {
 
         parent.viewGroup.addView(this);
 
-        double angle = SArrowView.calculateAngle(parent.xStart, parent.yStart, parent.xEnd, parent.yEnd);
+        double angle = SArrowViewOld.calculateAngle(parent.xStart, parent.yStart, parent.xEnd, parent.yEnd);
 
         switch (type){
             case ArrowHead:

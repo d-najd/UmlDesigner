@@ -10,8 +10,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.umldesigner.activities.uml_activity.SListeners;
 import com.umldesigner.activities.uml_activity.views.SBackground;
-import com.umldesigner.activities.uml_activity.views.STable.STableView;
-import com.umldesigner.activities.uml_activity.views.STable.STableBuilder;
+import com.umldesigner.activities.uml_activity.views.arrow.SArrowView;
+import com.umldesigner.activities.uml_activity.views.table.STableView;
+import com.umldesigner.activities.uml_activity.views.table.STableBuilder;
 import com.umldesigner.infrastructure.uml.data.SItem.SItemData;
 import com.umldesigner.infrastructure.uml.logic.SObjectFactory;
 import com.umldesigner.infrastructure.uml.logic.SSettingsSingleton;
@@ -33,20 +34,29 @@ public class MainActivity extends AppCompatActivity implements ReceiverInterface
         dp = getResources().getDisplayMetrics().density;
         float spacing = SSettingsSingleton.getInstance().getSpacing();
         container = findViewById(R.id.container);
+       
         
         listeners = listeners();
         
-        //Depricated
         sObjectFactory = new SObjectFactory(container, listeners);
         
         ArrayList<SItemData> umlAdapterFieldArrayList = new ArrayList<>(Arrays.asList(
                 new SItemData("ProductId", "int"), new SItemData("ProductName", "varchar(100)")));
         
-        STableView sTableView = new STableBuilder(this, listeners, "title", 1f, 1f)
+        STableView sTableView = new STableBuilder(this, listeners, "title", 1, 1)
                 .addItems(umlAdapterFieldArrayList)
                 .build();
         
-        container.addView((View) sTableView);
+        STableView sTableView1 = new STableBuilder(this, listeners(), "title1", 13, 13)
+                .addItems(umlAdapterFieldArrayList)
+                .build();
+        
+        container.addView(sTableView);
+        container.addView(sTableView1);
+    
+        SArrowView sArrowView = new SArrowView(this);
+        container.addView(sArrowView);
+        
         //depricated, replace with builder in future
         //container.addView((View) sObjectFactory.create("arrow",
         //        new float[]{3.5f * spacing, 13f * spacing, 9.5f * spacing, 18f * spacing}));

@@ -6,12 +6,13 @@ import com.umldesigner.infrastructure.uml.entities.SObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import lombok.AccessLevel;
 import lombok.Getter;
 
 /**
- * a singleton which holds the schema settings
+ * a singleton which holds the schema settings and schema related stuff
  */
 @Getter
 public class SSettingsSingleton {
@@ -55,7 +56,32 @@ public class SSettingsSingleton {
     /**
      * puts a view to the ViewTags with given id
      */
-    public void allViewTagsPut(Integer appId, SObject umlObject){
-        allUmlObjects.put(appId, umlObject);
+    public void allViewTagsPut(Integer id, SObject umlObject){
+        allUmlObjects.put(id, umlObject);
+    }
+    
+    /**
+     * moves uml view to given position using grid spaces
+     * @param id of the view
+     * @param x position in grid spaces, not absolute
+     * @param y position in grid spaces, not absolute
+     * @see #moveViewAbsolute(int, float, float)
+     */
+    public void moveView(int id, float x, float y){
+        x = x * getSpacing();
+        y = y * getSpacing();
+        
+        Objects.requireNonNull(allUmlObjects.get(id)).move(x, y);
+    }
+    
+    /**
+     * moves uml view to a given absolute position
+     * @param id of the view
+     * @param x absolute position
+     * @param y absolute position
+     * @see #moveView(int, float, float)
+     */
+    public void moveViewAbsolute(int id, float x, float y){
+        Objects.requireNonNull(allUmlObjects.get(id)).move(x, y);
     }
 }

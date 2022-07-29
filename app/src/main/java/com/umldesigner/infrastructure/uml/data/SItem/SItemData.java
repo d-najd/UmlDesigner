@@ -18,4 +18,10 @@ public class SItemData extends SItemPojo implements BaseDataInterface {
         this.value = value;
         this.type = type;
     }
+    
+    public SItemData(String value, String type, Boolean isPrimaryKey){
+        this.value = value;
+        this.type = type;
+        this.isPrimaryKey = isPrimaryKey;
+    }
 }

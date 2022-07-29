@@ -2,7 +2,7 @@
 <!--NOTE for some reason wrap-content removes the lines, remember to change it in
 layout/activity_main.xml if you change the width -->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="192.5dp"
+    android:layout_width="157.5dp"
     android:layout_height="wrap_content"
     android:background="@drawable/uml_table_border_line"
     android:elevation=".1dp"
